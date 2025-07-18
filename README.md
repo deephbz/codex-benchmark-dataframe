@@ -31,7 +31,9 @@ a larger row range (up to 100M rows), saving intermediate summary data
 and publishing-ready charts.
 
 ```bash
-./run_bench.sh benchmark_results zstd zstd
+./run_bench.sh
+# or pass custom row sizes
+# ./run_bench.sh benchmark_results "1000 10000 100000"
 ```
 
 The script writes Markdown tables to `results.md` and stores CSV and PNG
@@ -53,5 +55,5 @@ common HPC benchmarking methodology:
   plots are produced with Matplotlib using a logarithmic x‑axis for
   clarity.
 
-Adjust the row sizes in `run_bench.sh` if hardware constraints require a
-smaller range.
+You can provide alternate row sizes to `run_bench.sh` if hardware
+constraints require a smaller range.
