@@ -41,8 +41,9 @@ common HPC benchmarking methodology:
 
 - **Isolated environment** – dependencies are managed via `uv` to ensure
   reproducibility.
-- **Repeatability** – each row size is generated once per run and all
-  timings are collected with `time.perf_counter()`.
+- **Repeatability** – each I/O operation is executed multiple times
+  (configurable via `--repeats`) and the mean and standard deviation of
+  the timings are recorded using NumPy.
 - **Data characteristics** – all columns are `float32` to focus on binary
   I/O throughput. Generated data is random and not compressed.
 - **Reporting** – timing results are converted to Markdown tables and
