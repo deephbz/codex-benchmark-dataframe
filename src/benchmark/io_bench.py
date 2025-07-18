@@ -16,17 +16,27 @@ class IOBenchmark:
         func(*args, **kwargs)
         return time.perf_counter() - start
 
-    def bench_write_ipc(self, df: pl.DataFrame, filename: str) -> float:
+    def bench_write_ipc(
+        self,
+        df: pl.DataFrame,
+        filename: str,
+        compression: str | None = None,
+    ) -> float:
         path = self.base_dir / f"{filename}.feather"
-        return self._time_it(df.write_ipc, path)
+        return self._time_it(df.write_ipc, path, compression=compression)
 
     def bench_read_ipc(self, filename: str) -> float:
         path = self.base_dir / f"{filename}.feather"
         return self._time_it(pl.read_ipc, path)
 
-    def bench_write_parquet(self, df: pl.DataFrame, filename: str) -> float:
+    def bench_write_parquet(
+        self,
+        df: pl.DataFrame,
+        filename: str,
+        compression: str | None = None,
+    ) -> float:
         path = self.base_dir / f"{filename}.parquet"
-        return self._time_it(df.write_parquet, path)
+        return self._time_it(df.write_parquet, path, compression=compression)
 
     def bench_read_parquet(self, filename: str) -> float:
         path = self.base_dir / f"{filename}.parquet"
