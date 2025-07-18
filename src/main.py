@@ -6,7 +6,14 @@ from benchmark.io_bench import IOBenchmark
 from benchmark.plotting import plot_results
 
 
-ROW_SIZES = [1_000, 10_000, 100_000, 1_000_000]
+ROW_SIZES = [
+    1_000,
+    10_000,
+    100_000,
+    1_000_000,
+    10_000_000,
+    100_000_000,
+]
 
 
 def run_benchmarks(output_dir: Path, rows: list[int]) -> None:

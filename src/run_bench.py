@@ -5,8 +5,15 @@ from benchmark.data_gen import generate_float32_df
 from benchmark.io_bench import IOBenchmark
 from benchmark.plotting import plot_results
 
-# Default row sizes keep memory usage reasonable. Adjust if needed.
-ROW_SIZES = [1_000, 10_000, 100_000, 1_000_000]
+# Default row sizes for full benchmarks. Pass --rows to override.
+ROW_SIZES = [
+    1_000,
+    10_000,
+    100_000,
+    1_000_000,
+    10_000_000,
+    100_000_000,
+]
 
 
 def run_benchmarks(out_dir: Path, rows: list[int] = ROW_SIZES) -> pl.DataFrame:
