@@ -20,6 +20,13 @@ uv pip run python src/main.py --output benchmark_data --rows 1000 10000 100000 1
 Results are saved in the specified output directory along with a
 `benchmark.png` visualization.
 
+## Memory requirements
+
+Each row consists of 50 `float32` values (~200 bytes). A 1M row DataFrame
+therefore requires roughly **200&nbsp;MB** of RAM, while a 100M row dataset would
+consume around **20&nbsp;GB**. Ensure your machine has enough memory before running
+the larger benchmarks or reduce the row sizes accordingly.
+
 ## Reproducing full results
 
 A helper script `run_bench.sh` automates running the benchmarks across
