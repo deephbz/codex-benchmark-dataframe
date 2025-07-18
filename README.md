@@ -4,6 +4,7 @@ This project benchmarks Polars DataFrame read and write performance for
 Feather (IPC v2) and Parquet formats. The benchmarks generate random
 `float32` data with 50 columns across a range of row counts.
 
+
 ## Setup
 
 ```bash
@@ -12,6 +13,7 @@ uv pip install -r requirements.txt
 ```
 
 ## Running quick benchmarks
+
 
 ```bash
 uv pip run python src/main.py --output benchmark_data --rows 1000 10000 100000 1000000
