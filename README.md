@@ -14,7 +14,11 @@ uv pip install -r requirements.txt
 ## Running quick benchmarks
 
 ```bash
-uv pip run python src/main.py --output benchmark_data --rows 1000 10000 100000 1000000
+uv pip run python src/run_bench.py \
+  --output benchmark_data \
+  --rows 1000 10000 100000 1000000 \
+  --ipc-compression zstd \
+  --parquet-compression zstd
 ```
 
 Results are saved in the specified output directory along with a
@@ -27,7 +31,7 @@ a larger row range (up to 100M rows), saving intermediate summary data
 and publishing-ready charts.
 
 ```bash
-./run_bench.sh
+./run_bench.sh benchmark_results zstd zstd
 ```
 
 The script writes Markdown tables to `results.md` and stores CSV and PNG

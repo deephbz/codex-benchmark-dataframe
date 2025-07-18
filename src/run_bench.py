@@ -9,7 +9,12 @@ from benchmark.plotting import plot_results
 ROW_SIZES = [1_000, 10_000, 100_000, 1_000_000]
 
 
-def run_benchmarks(out_dir: Path, rows: list[int] = ROW_SIZES) -> pl.DataFrame:
+def run_benchmarks(
+    out_dir: Path,
+    rows: list[int] = ROW_SIZES,
+    ipc_compression: str = "zstd",
+    parquet_compression: str = "zstd",
+) -> pl.DataFrame:
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     bench = IOBenchmark(out_dir)
@@ -19,9 +24,9 @@ def run_benchmarks(out_dir: Path, rows: list[int] = ROW_SIZES) -> pl.DataFrame:
         tag = f"df_{n}"
         records.append({
             "rows": n,
-            "write_ipc": bench.bench_write_ipc(df, tag),
+            "write_ipc": bench.bench_write_ipc(df, tag, compression=ipc_compression),
             "read_ipc": bench.bench_read_ipc(tag),
-            "write_parquet": bench.bench_write_parquet(df, tag),
+            "write_parquet": bench.bench_write_parquet(df, tag, compression=parquet_compression),
             "read_parquet": bench.bench_read_parquet(tag),
         })
     results = pl.DataFrame(records)
@@ -39,6 +44,17 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run Polars I/O benchmarks")
     parser.add_argument("--output", type=Path, default=Path("./benchmark_data"))
     parser.add_argument("--rows", type=int, nargs="*", default=ROW_SIZES)
+    parser.add_argument("--ipc-compression", default="zstd", help="Compression for IPC writes")
+    parser.add_argument(
+        "--parquet-compression",
+        default="zstd",
+        help="Compression for Parquet writes",
+    )
     args = parser.parse_args()
-    df = run_benchmarks(args.output, args.rows)
+    df = run_benchmarks(
+        args.output,
+        args.rows,
+        ipc_compression=args.ipc_compression,
+        parquet_compression=args.parquet_compression,
+    )
     print(df)
